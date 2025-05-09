@@ -6,7 +6,7 @@ const buttonStyle = StyleSheet.create({
         backgroundColor: '#2979F2',
         borderRadius: 50,
         height: 55,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     title:{
         fontFamily: 'Inter',
