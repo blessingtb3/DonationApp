@@ -41,4 +41,9 @@ class MainApplication : Application(), ReactApplication {
       load()
     }
   }
+
+   @Override
+    protected JSIModulePackage getJSIModulePackage() {
+      return new ReanimatedJSIModulePackage(); 
+    }
 }
