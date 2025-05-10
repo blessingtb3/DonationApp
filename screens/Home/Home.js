@@ -1,20 +1,14 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
 import globalSyle from '../../assets/styles/globalStyle';
-import Header from '../../components/Header/Header';
-import TabButton from '../../components/Tab/TabButton';
-import BadgeButton from '../../components/Badge/BadgeButton';
-
+import Search from '../../components/Search/Search';
 
 const Home = () => {
     return (
         <SafeAreaView style={[globalSyle.backgroundWhite, globalSyle.flex]}>   
-            <Header title={'Daniisto'} type={1}/>
-            <TabButton title={'Highlight'}/>
-            <TabButton title={'Highlight'} isInactive={true}/>
-            <BadgeButton title={'Environment'}/>
+            <Search onSearch={(value) => console.log(value)}/>
         </SafeAreaView>
-    )
-}
+    );
+};
 
 export default Home;

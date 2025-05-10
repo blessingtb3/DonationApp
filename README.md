@@ -100,5 +100,5 @@ To learn more about React Native, take a look at the following resources:
 
 - cd Documents/Coding/react-native/DonationApp
 - npx react-native run-ios --simulator="iPhone 15"
-- npx react-native start --reset-cache
+- npx react-native start -- --reset-cache
 - npm cache clean --force
