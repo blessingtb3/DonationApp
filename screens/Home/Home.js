@@ -1,16 +1,26 @@
-import React from 'react';
-import { SafeAreaView, View, Text, ScrollView, Image, Pressable } from 'react-native';
+import React, { useEffect } from 'react';
+import { SafeAreaView, View, Text, ScrollView, Image, Pressable, FlatList } from 'react-native';
 import globalSyle from '../../assets/styles/globalStyle';
 import { useDispatch, useSelector } from 'react-redux';
 import homeStyle from './style';
 import Header from '../../components/Header/Header';
 import Search from '../../components/Search/Search';
+import TabButton from '../../components/Tab/TabButton';
 
 const Home = () => {
 
     const user = useSelector(state => state.user);
     const categories = useSelector(state => state.categories);
     const dispatch = useDispatch();//using the dispatch function to update the user state
+
+
+    //using useeffect hook to load the categories upon home initialization
+    useEffect(() => {
+        console.log(categories);
+    }, [categories]);
+
+
+
 
     return (
         <SafeAreaView style={[globalSyle.backgroundWhite, globalSyle.flex]}>
@@ -39,6 +49,19 @@ const Home = () => {
                             resizeMode={'contain'}
                         />
                     </Pressable>
+                </View>
+
+                <View style={homeStyle.categories}>
+                    <FlatList 
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        data={categories.categories}  
+                        renderItem={({item}) => (
+                            <View style={homeStyle.categoryItems} key={item.categoryId}>
+                                <TabButton title={item.name} isInactive={item.categoryId !== categories.selectedCategoryId} />
+                            </View>
+                        )}
+                    />   
                 </View>
             </ScrollView>
         </SafeAreaView>

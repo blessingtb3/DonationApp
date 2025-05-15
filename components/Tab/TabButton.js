@@ -28,14 +28,14 @@ const TabButton = (props) => {
     );
 };
 
-TabButton.default={
+TabButton.default = {
     isInactive: false,
-    onPress: () => {}
-}
-TabButton.PropTypes={
+    onPress: () => {},
+};
+TabButton.PropTypes = {
     title: PropTypes.string.isRequired,
     isInactive: PropTypes.bool.isRequired,
-    onPress: PropTypes.func
-}
+    onPress: PropTypes.func,
+};
 
 export default TabButton;
