@@ -9,6 +9,7 @@ import Search from '../../components/Search/Search';
 const Home = () => {
 
     const user = useSelector(state => state.user);
+    const categories = useSelector(state => state.categories);
     const dispatch = useDispatch();//using the dispatch function to update the user state
 
     return (
