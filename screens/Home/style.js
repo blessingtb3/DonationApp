@@ -35,6 +35,12 @@ const homeStyle = StyleSheet.create({
         width: '100%',
         height: verticalScale(160),
     },
+    categories:{
+        marginLeft: horizontalScale(24),
+    },
+    categoryItems:{
+        paddingRight: 10,
+    },
 });
 
 export default homeStyle;
