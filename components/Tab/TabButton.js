@@ -16,12 +16,11 @@ const TabButton = (props) => {
 
     return (
         <Pressable 
-            disabled={props.isInactive} 
             style={[
                 tabButtonStyle.tab, 
                 props.isInactive && tabButtonStyle.inactiveTab, tabButtonWidth
             ]}
-            onPress={() => props.onPress()}
+            onPress={() => props.onPress(props.tabId)}
         >
             <Text onTextLayout={(event) => {setWidth(event.nativeEvent.lines[0].width);}} ref={textRef} style={[tabButtonStyle.title, props.isInactive && tabButtonStyle.inactiveTitle]}>{props.title}</Text>
         </Pressable>
@@ -33,6 +32,7 @@ TabButton.default = {
     onPress: () => {},
 };
 TabButton.PropTypes = {
+    tabId: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     isInactive: PropTypes.bool.isRequired,
     onPress: PropTypes.func,

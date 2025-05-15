@@ -6,6 +6,7 @@ import homeStyle from './style';
 import Header from '../../components/Header/Header';
 import Search from '../../components/Search/Search';
 import TabButton from '../../components/Tab/TabButton';
+import { updateSelectedCategoryId } from '../../redux/reducers/Categories';
 
 const Home = () => {
 
@@ -32,9 +33,9 @@ const Home = () => {
                             <Header title={user.firstName + ' ' + user.lastName[0] + '.👋'}/>
                         </View>
                     </View>
-                    <Image 
-                        source={{uri: user.profileImage}} 
-                        style={homeStyle.profileImage} 
+                    <Image
+                        source={{uri: user.profileImage}}
+                        style={homeStyle.profileImage}
                         resizeMode={'contain'}
                     />
                 </View>
@@ -43,7 +44,7 @@ const Home = () => {
                 </View>
                 <View style={homeStyle.highlightedImageContainer}>
                     <Pressable>
-                        <Image 
+                        <Image
                             style={homeStyle.highlightedImage}
                             source={require('../../assets/images/highlighted_image.png')}
                             resizeMode={'contain'}
@@ -51,17 +52,27 @@ const Home = () => {
                     </Pressable>
                 </View>
 
+                {/* tab header */}
+                <View style={homeStyle.categoryHeader}>
+                    <Header title={'Selected Category'} type={2}/>
+                </View>
+                {/* horizontal scrollview tabs */}
                 <View style={homeStyle.categories}>
-                    <FlatList 
+                    <FlatList
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
-                        data={categories.categories}  
+                        data={categories.categories}
                         renderItem={({item}) => (
                             <View style={homeStyle.categoryItems} key={item.categoryId}>
-                                <TabButton title={item.name} isInactive={item.categoryId !== categories.selectedCategoryId} />
+                                <TabButton
+                                    tabId={item.categoryId}
+                                    onPress={value => dispatch(updateSelectedCategoryId(value))}
+                                    title={item.name}
+                                    isInactive={item.categoryId !== categories.selectedCategoryId}
+                                />
                             </View>
                         )}
-                    />   
+                    />
                 </View>
             </ScrollView>
         </SafeAreaView>

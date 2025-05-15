@@ -29,7 +29,7 @@ const homeStyle = StyleSheet.create({
         marginTop: verticalScale(20),
     },
     highlightedImageContainer:{
-        marginHorizontal: 24,
+        marginHorizontal: horizontalScale(24),
     },
     highlightedImage:{
         width: '100%',
@@ -37,6 +37,11 @@ const homeStyle = StyleSheet.create({
     },
     categories:{
         marginLeft: horizontalScale(24),
+    },
+    categoryHeader:{
+        marginHorizontal: horizontalScale(24),
+        marginBottom: verticalScale(10),
+        marginTop: verticalScale(6),
     },
     categoryItems:{
         paddingRight: 10,
