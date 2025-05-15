@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, Text, ScrollView, Image, Pressable, FlatList } from 'react-native';
 import globalSyle from '../../assets/styles/globalStyle';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,15 +10,39 @@ import { updateSelectedCategoryId } from '../../redux/reducers/Categories';
 
 const Home = () => {
 
-    const user = useSelector(state => state.user);
     const categories = useSelector(state => state.categories);
+    const user = useSelector(state => state.user);
     const dispatch = useDispatch();//using the dispatch function to update the user state
 
+    const [categoryPage, setCategoryPage] = useState(1);//category page state for usage for pagination on tab button scrolling
+    const [categoryList, setCategoryList] = useState([]);
+    const [isLoadingCategories, setIsLodingCategories] = useState(false);
+    const categoryPageSize = 4;
 
-    //using useeffect hook to load the categories upon home initialization
+
     useEffect(() => {
-        console.log(categories);
-    }, [categories]);
+        setIsLodingCategories(true);
+        setCategoryList(pagination(categories.categories, categoryPage, categoryPageSize));
+        setCategoryPage(prev => prev + 1 );
+        setIsLodingCategories(false);
+        console.log(categories);//using useeffect hook to load the categories upon home initialization
+    }, []);
+
+
+
+    const pagination = (items, pageNumber, pageSize) => {
+        const startIndex = (pageNumber - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+
+        if(startIndex >= items.length){
+            return [];
+        }
+        return items.slice(startIndex, endIndex);
+    }
+
+
+    
+  
 
 
 
@@ -59,9 +83,23 @@ const Home = () => {
                 {/* horizontal scrollview tabs */}
                 <View style={homeStyle.categories}>
                     <FlatList
+                        onEndReachedThreshold={0.5}
+                        onEndReached={() => {
+                            if(isLoadingCategories) {
+                                return;
+                            }
+                            console.log('User has reached the end and we are getting more data for page number ', categoryPage);
+                            setIsLodingCategories(true);
+                            let newData = pagination(categories.categories, categoryPage, categoryPageSize);
+                            if(newData.length > 0 ){
+                                setCategoryList(prevState => [...prevState, ...newData]);
+                                setCategoryPage(prevState => prevState + 1);
+                            }
+                            setIsLodingCategories(false);
+                        }}
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
-                        data={categories.categories}
+                        data={categoryList}
                         renderItem={({item}) => (
                             <View style={homeStyle.categoryItems} key={item.categoryId}>
                                 <TabButton
